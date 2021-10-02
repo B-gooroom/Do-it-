@@ -1,2 +1,2 @@
 # tools
-* [Git](git.md)
+* [Git](Git.md)
