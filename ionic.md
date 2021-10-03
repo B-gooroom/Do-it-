@@ -1,4 +1,4 @@
-### ionic + angular 'memo'
+## ionic + angular 'memo'
 
 ---
   - ionic CLI 생성시 4개 파일 자동생성 (ionic start)
