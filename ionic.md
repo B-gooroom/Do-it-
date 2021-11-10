@@ -80,3 +80,46 @@
 - keyup = 키가 떼질 때(release) 트리거 발생
 
 → keydown/ keyup = 눌린 키에 대해 알려주며, down > press > up 순서대로 발생함
+
+---
+### Directive (in Angular)
+- Angualr의 `Directive` = DOM의 모양/ 동작들을 지시하기 위한 명령(DOM을 제어하기 위한 용도)
+    - `HTML Element or Element의 attribute` 형태로 사용되게 됨(ngIf 처럼!)
+    - 기본적으로는 해당 component를 이용하면 가능함!
+    
+    → 하지만 여러 view에서 공통적으로 사용하는 Element or Element의 attribute 등을 directive로 지정해두면 component의 복잡도를 낮출 수 있고, 유지보수가 편함
+    
+    → component도 큰 의미에서 directive라고 해석할 수 있음.
+
+- Directive의 종류
+    1. Component Directive : 우리가 알고 있는 Component로 selector에서 directive를 지정해서 사용하게 됨
+    2. Attribute Directive : HTML Element의 Attribute로 사용됨 (ex - ngClass 등)
+    3. Structural Directive : DOM을 제어하기 위한 directive (ex - ngIf, ngFor, ngSwitch 등)
+    4. Custom Directive : 직접 만들어서사용하는 directive
+    
+    1. `Structural Directive` > ngIf, ngFor 등
+        - Angular 는 동일한 Element에 두개 이상의 *ngIf, *ngFor, *ngSwitch 를 사용할 수 없음 !
+        
+        → 해서 이런걸 해결하기 위해 ng-container를 제공
+        
+    
+    1. `Custom Directive` > 말그대로 custom해서 사용하는 directive
+    
+    ```tsx
+    import {Direcitve, ElementRef } form '@angular/core';
+    	// 1) Directive를 사용해서 만들기 때문 2) ElementRef로 내보내주기 때문 -> Directive 와 ElementRef import
+    
+    @Directive ({ selector: '[focusOnInit]' })
+    	// Directive로 만들고 어떤이름으로 쓸지 정해주어야함
+    
+    export class FocusOnInitDirective extends BaseComponent {
+    	pulic constructor(
+    		private elementRef: ElementRdf
+    	)
+    }
+    ```
+    
+    - 사용해 줄때는 기존 directive 사용할 때 처럼 < > 안에 selector로 만들어준 이름을 넣어서 사용!
+        ![image](https://user-images.githubusercontent.com/79742210/141076213-977e6b95-df76-45c5-abd9-da964caba10e.png)
+
+---
