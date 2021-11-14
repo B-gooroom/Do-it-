@@ -1,7 +1,31 @@
 ## ionic + angular 'memo'
 
 ---
-  - ionic CLI 생성시 4개 파일 자동생성 (ionic start)
+### angular의 LifeCycle Hook Event
+
+1. **construcotr**
+    - angular와 별개로 .ts에서 호출하는 method
+    - constructor가 실행된 후 angular LifeCycle 실행
+2. **ngOnChange** 
+    - 자식 component에서 @Input을 이용하면, 부모 component에서 property를 전달 받을 수 있음
+    - 부모 component에서 전달해주는 property가 변경되면 ngOnChange가 재호출!
+    - 부모로부터 같은 값을 호출받거나, 전달받은 값이 객체 내의 property만 바뀐경우에는 호출 x
+3. **ngOnInit**
+    - ngOngChange 이후에 호출, 초기에 한번만 호출됨
+    - class가 가지고 있는 property와 @Input으로 내려받은 property가 모두 초기화 된 이후 호출!
+    - 화면에 Data 가 표시되기 전 필요한 property등을 초기화 시키는데 사용!
+4. **ngDoCheck**
+    - component의 상태를 감지함
+    - 상태가 변경됨을 감지할 때마다 호출되기 때문에 되도록 사용 x
+5. **ngAfterViewInit**
+    - component view가 완전히 초기화 되었을 때 실행! (자식 component 포함) 이는 오직 component에만 적용!
+    - 자식 component까지 초기화 후 실행되는 특성으로, 부모 component -> 자식 component에 접근하는 @viewchild를 사용할 때 이를 사용
+6. **ngOnDestroy**
+    - component가 종료되기 전에 subscribed, event등 핸들러를 제거할 때 사용!
+
+
+---
+- ionic CLI 생성시 4개 파일 자동생성 (ionic start)
   1. **.html**
   2. **.scss**
   3. **.module.ts** > route 연결
