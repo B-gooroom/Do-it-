@@ -1,6 +1,5 @@
 ## ionic + angular 'memo'
 
----
 ### angular의 LifeCycle Hook Event
 
 1. **construcotr**
@@ -145,5 +144,24 @@
     
     - 사용해 줄때는 기존 directive 사용할 때 처럼 < > 안에 selector로 만들어준 이름을 넣어서 사용!
         ![image](https://user-images.githubusercontent.com/79742210/141076213-977e6b95-df76-45c5-abd9-da964caba10e.png)
+
+---
+### .setTimeout (in Angular)
+
+- 일정시간이 지난 후 원하는 함수를 에약 실행 할 수 있게 하는 '호출 스케줄링(scheduling a call) ( 친구로 `setInterval`이 있음)
+- schedule a call
+    - setTimeout > 일정 시간이 지난 후에 함수를 실행하는 방법
+    - setInterval > 일정 시간 간격을 두고 함수를 실행하는 방법
+
+- setTimeout 실행
+
+```tsx
+setTimeout('실행할부분', 1000)
+setTimeout(() => '실행할부분', 1000)
+	// '1000' 부분에는 원하는 시간을 적어줌
+	// 실행할 부분에는 함수로 넘겨줄 수 있음
+```
+
+- 그래서 우리는 setTimeout에 if문으로 'ion-textarea' else 'ion-input'으로 input에서만 사용가능하던 directive 를 사용할수 있게되었음
 
 ---
