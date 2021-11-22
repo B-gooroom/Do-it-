@@ -44,26 +44,6 @@
   - ngOnInit () {} 안에 쓰여지는 함수 순서대로 호출된다
 
 ---
-### 이슈완료 🔚
-
-1. git branch (feature/ 'branch이름') 확인
-    
-    
-    ![image](https://user-images.githubusercontent.com/79742210/140269174-8574505e-621d-40e2-9d8f-f07aff013363.png)
-
-2. git commit -am "fix: ~이슈 요약~ "
-    
-
-    ![image](https://user-images.githubusercontent.com/79742210/140269249-abcb9c10-5685-485e-8ad8-969e7fcf95e6.png)
-
-    
-3. git push
-    
-    ![image](https://user-images.githubusercontent.com/79742210/140269285-5774123c-ff30-480a-81c8-454489e2b57b.png)
-    
-    - git push 할때, use git push —블라블라 나오면, 그대로 복붙에서 push~
-
----
 1. switch - case (return or break이 있어야 빠져나갈 수 있음) + translate.instant 로 활용 (언어파일에서 {}로 가져오기)
 2. export enum ScState {} (booking-model.ts) → ScState.Adding 요런형식으로 가져오기위해 모아둔거( . 으로 경로 접근)
     
