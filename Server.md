@@ -1,5 +1,7 @@
-## DNS ?
+## Server ...
 
+### DNS ?
+---
 - Domain Name System : 사람이 읽을 수 있는 도메인을 머신이 읽을 수 있는 IP주소로 변환해주는 친구
 
 ⇒ IP : 192.0.2.44 → Domain : www.amazon.com
