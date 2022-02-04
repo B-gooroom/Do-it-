@@ -19,23 +19,6 @@
 
 ---
 
-### Class - property & method
-
-- 객체 지향 프로그래밍 → 인터페이스 구분 → '내부 인터페이스' & '외부 인터페이스'
-    - 내부 인터페이스(interal interface) : 동일한 클래스 내의 다른 메소드에서는 접근이 가능하지만, 클래스 밖에서는 접근 불가능
-    - 외부 인터페이스(external interfacd) : 클래스 밖에서도 접근 가능한 프로퍼티 & 메소드
-
-- javascript의 인터페이스!
-    - public
-    - private
-    - protected → public & private 의 중간? 위로부터 상속받아오는 class 중에 접근이 가능하도록 하려면 protected를 사용
-        
-        (private 는 상속자의 관계여도 접근이 되지 않기 때문!)
-        
-        ( javascript 에서는 protected 를 정식 지원 x , but 사용하면 편리한 점이 많기때문에 이를 따와서 사용하는 경우 ⬆️  )
-        
----
-
 ### JS 일급함수
 
 - javascript에서 객체는 일급객체
