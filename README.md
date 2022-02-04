@@ -4,4 +4,3 @@
 * [chart.js](chart.js.md)
 * [Server](Server.md)
 * [for-javascript](for-javascript.md)
-* [For-javascript](for-javascript.md)
