@@ -113,3 +113,13 @@ git branch -D test
     - 코드 의존성 때문에 다른 사람 commit 중 일부를 가져와야 할 경우
 
 ---
+### `git prune`
+- 원격 브랜치를 삭제 했다 -> but 삭제한 원격 브랜치가 vsc의 git graph에서 확인되거나 git branch -r로 조회했을 때 확인되는 경우
+    => 로컬에서 원격을 바라보는 참조가 원격이랑 동기화 되지 않아서 그런 상황 발생!
+
+```bash
+아래 둘 중 하나 해보기~
+
+git fetch --all --prune
+git remote prune origin
+```
