@@ -19,6 +19,35 @@
 
 ---
 
+### Primitive type & Reference type
+
+- primitive ⇒ 메모리 공간에 변수가 가지는 값 자체를 저장 : 실제 데이터 값을 저장하는 타입
+- reference ⇒ 객체가 저장되어있는 위치를 저장 : 메모리 번지 값을 통해 객체를 참조하는 타입
+
+- primitive(원시 타입)
+    - 정수 : byte, short, int, long
+    - 실수 : float, double
+    - 문자형 : char
+    - 논리형 : boolean
+- reference(참조 타입)
+    - class, interface, array 등
+
+- 차이점
+    1. 원시타입은 null을 담을 수 없지만, 참조타입은 가능
+    
+    ```java
+    int i = null //불가능
+    Integer integer = null //가능
+    (integer = wrapper class)
+    ```
+    
+    1. 원시타입은 제너릭 타입에서 사용할 수 없지만, 참조타입은 가능
+
+- Boxing & Unboxing
+    - Boxing : 원시타입을 참조타입으로 변환시켜줌
+    - Unboxing : 참조타입을 원시타입으로 변환시켜줌
+
+---
 ### JS 일급함수
 
 - javascript에서 객체는 일급객체
