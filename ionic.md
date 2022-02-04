@@ -145,3 +145,24 @@ setTimeout(() => '실행할부분', 1000)
 - 그래서 우리는 setTimeout에 if문으로 'ion-textarea' else 'ion-input'으로 input에서만 사용가능하던 directive 를 사용할수 있게되었음
 
 ---
+
+### Page 안에서 component 가져오기
+
+- 해당 page 안에 module을 연결해줘야 <chart> 등 가져올 컴포넌트 안에 있는 내용이 같이 보여진다
+    
+    Q. 그러면 현재 'admin-main.page' & dashboard 2가지 화면에서 <chart>를 보여주고 있는데 ,어떤 page에서 routing 연결을 해야하나?
+    
+    A :  현재 'admin-main.page' 에서 dashboard를 child로 route 연결이 되어있고, dashboard(html)안에서 <chart>를 보여주고 있으니 routing은 dashboard안에 존재해야한다
+    
+    - dashboard.module.ts 안에 > `chartCompModule` import 해주고,
+    
+         imports[ ] 안에 `chartCompMoudule` 넣어준다
+
+---
+
+### @Input
+
+- 데이터를 연결해서 html로 부터 값을 받아와서 핸들링 할 수 있게 해주는 친구
+
+---
+
