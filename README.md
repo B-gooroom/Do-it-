@@ -3,4 +3,4 @@
 * [Ionic + Angular](ionic.md)
 * [chart.js](chart.js.md)
 * [Server](Server.md)
-* [for-JS](for-JS.md)
+* [for-javascript](for-javascript.md)
