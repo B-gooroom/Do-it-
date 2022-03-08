@@ -5,6 +5,7 @@
 - Inactive - active 상태에서 추가 작업을 하는 상태
 - Active - 앱이 켜져 있는, 이벤트를 받을 수 있는 상태
 - Background - 앱을 껏지만 뒤에 남아있는 상태
+----
 
 > 13부터는 이름이 변경
 - willFinishLaunching
