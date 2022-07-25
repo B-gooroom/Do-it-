@@ -4,3 +4,4 @@
 * [chart.js](chart.js.md)
 * [Server](Server.md)
 * [for-javascript](for-javascript.md)
+* [CoreJavascript](main.md)
