@@ -7,3 +7,4 @@
 * [CoreJavascript](CoreJavascript/main.md)
 * [css-grammer](cssGr.md)
 * [React-Native](RN.md)
+* [Next.js](next.js.md)
