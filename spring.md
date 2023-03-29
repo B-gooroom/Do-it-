@@ -91,10 +91,10 @@ java -jar bunny-spring-0.0.1-SNAPSHOT.jar
   ```
 
 ---
-### web
+#### web
 
-- 정적 컨텐츠 → server에서 그대로 출력
-    - resources > static > 만든 html 파일을 그대로 웹 브라우저에 출력
+- 정적 컨텐츠 → server에서 그대로 출력  
+    `resources > static > 만든 html 파일을 그대로 웹 브라우저에 출력`
     1. router [hello-static.html](http://localhost:8080/hello-static.html)([localhost:8080/hello-static.html](http://localhost:8080/hello-static.html)) 입력
     2. tomcat이 ‘hello-static’ 이름의 controller 검색 (controller 먼저 찾아봄, 우선순위 ↑)
     3. `resources: static/hello-static.html` 로 찾아서 출력해줌
@@ -102,8 +102,8 @@ java -jar bunny-spring-0.0.1-SNAPSHOT.jar
     - 서버에서 변형해서 출력
     - mvc : Model, View, Controller
     - controller 와 view는 나누어서 setting
-- api
-    - json 형식 또는 string 형식으로 데이터 구조 포맷으로 클라이언트에게 출력해주는 방식
+- api  
+    `json 형식 또는 string 형식으로 데이터 구조 포맷으로 클라이언트에게 출력해주는 방식`
     1. controller → @ResponseBody (ResponseBody가 return 해주면 HttpMessageConverter가 작동함)
     2. HttpMessageConverter → 단순 문자면 StringConverter/ json 이면 JsonConverter
     3. json은 요청한 웹 브라우저에게 던져주고 출력됨
