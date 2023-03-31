@@ -143,3 +143,45 @@ java -jar bunny-spring-0.0.1-SNAPSHOT.jar
     - setter 주입
       - 단점 = public으로 열어둬야함(노출됨)
     <img width="400" alt="스크린샷 2023-03-05 오후 5 28 09" src="https://user-images.githubusercontent.com/79742210/229024905-a2a950dd-0e4c-418e-a667-c11a021ec285.png">
+
+---
+#### JDBC
+
+- 개방-폐쇄 원칙(ocp, Open-Closed Principle)
+    - 확장에는 열려있고, 수정 & 변경에는 닫혀있음
+- 기존 코드를 만지지않고, 구현 클래스를 변경할 수 있음
+- `@SpringBootTest` - 스프링 컨테이너와 테스트를 함께 실행
+- `@Transactional` - 테스트 시작 전에 트랜잭션을 시작하고, 완료후 항상 롤백 → 다음테스트에 영향을 주지 않음
+
+---
+#### JPA (Java Persistence API)
+
+*myBatis > jpa (국내), 
+
+- 기존의 반복코드, 기본적인 sql도 직접 만들어서 실행해줌
+- 객체 중심의 설계로 생각해볼 수 있음
+- 개발 생산성을 크게 높을 수 있음
+
+---
+#### 스프링 데이터 JPA
+
+- JPA 프레임워크
+    - repository 구현 클래스 없이 인터페이스 만으로도 개발이 가능함
+    - 기본 CRUD 기능도 스프링 데이터 JPA가 모두 제공
+    - 관계형 데이터베이스를 사용한다면 스프링 데이터 JPA는 필수!
+    - 공통화 메서드를 기본적으로 제공해줌 → 메서드 이름만으로 조회 기능 제공
+        - `findAll()`
+        - `findById()`
+        - `findAllById()`
+        - 등등..
+- 실무에서는 JPA & 스프링 데이터 JPA를 기본적으로 사용, 복잡한 동적 쿼리는 Querydsl 라이브러리 사용
+    - Querydsl → 쿼리도 자바 코드로 안전하게 작성 가능, 동적 쿼리도 편리하게 작성할 수 있음!
+    - or JPA 네이티브 쿼리
+    - or JdbcTemplate
+
+---
+#### AOP(Aspect Oriented Programming)
+
+- `공통 관심 사항(cross-cutting concern)` vs `핵심 관심 사항(core concern)` 의 분리 (프론트의 컴포넌트화로 이해)
+    - 시간을 측정하는 로직은 `공통 관심 사항`
+    - 실제로 동작하는 로직은 `핵심 관심 사항`
