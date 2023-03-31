@@ -116,3 +116,30 @@ java -jar bunny-spring-0.0.1-SNAPSHOT.jar
     
 <!--     </aside> -->
 
+---
+#### spring의 동작
+
+1. controller : 외부 요청 받고
+2. service : 비즈니스 로직 만들고
+3. repository : 데이터 저장해주고
+
+> 📌 스프링 컨테이너  
+> helloController → memberService → memberRepository
+
+- 스프링 bean을 등록하는 2가지 방법
+    - 컴포넌트 스캔(@Controller, @Service, @Repository)과 자동 의존관계 설정
+        - @Component 애노테이션이 있으면 스프링 빈으로 자동 등록됨
+    - 자바코드로 직접 스프링 빈 등록
+        - 설정파일(SpringConfig)에 등록
+- 스프링은 컨테이너에 빈을 등록할 때, `싱글톤`으로 등록(하나만 등록하여 공유해서 사용해야함)
+
+- **DI(Dependency Injection)**
+    - 생성자 주입
+    <img width="400" alt="스크린샷 2023-03-05 오후 5 30 53" src="https://user-images.githubusercontent.com/79742210/229024691-5a6598f3-eb39-4464-8c46-831d6b4060e8.png">
+
+    - 필드 주입
+    <img width="350" alt="스크린샷 2023-03-05 오후 5 28 56" src="https://user-images.githubusercontent.com/79742210/229024857-17cc1c23-292a-4015-9f57-d4fb66f91270.png">
+
+    - setter 주입
+      - 단점 = public으로 열어둬야함(노출됨)
+    <img width="400" alt="스크린샷 2023-03-05 오후 5 28 09" src="https://user-images.githubusercontent.com/79742210/229024905-a2a950dd-0e4c-418e-a667-c11a021ec285.png">
