@@ -2,10 +2,10 @@
 
 ### 인터넷 네트워크
 
-#### 인터넷 통신
+#### #인터넷 통신
 <img width="600" alt="스크린샷 2023-03-24 오후 1 17 10" src="https://user-images.githubusercontent.com/79742210/232988601-6f2a1746-8c5e-4353-ad46-d24c256f1c55.png">
 
-#### IP(Internet Protocol)
+#### #IP(Internet Protocol)
  - 지정한 IP 주소에 데이터 전달
  - 단위: `packet`(package + bucket)
  - <img width="600" alt="스크린샷 2023-03-24 오후 1 17 36" src="https://user-images.githubusercontent.com/79742210/232991547-f0c67c80-fde3-44e8-9a4a-18c8894b40ee.png">
@@ -15,7 +15,7 @@
    - 비신뢰성 - 패킷이 중간에 사라지거나, 요청 순서대로 오지 않는다면?
    - 프로그램 구분(중독성) - 같은 IP를 사용하는 서버에서 통신하는 app이 둘 이상일 때?
 
-#### TCP
+#### #TCP
  - `출발지 PORT, 목적지 PORT, 전송 제어, 순서, 검증정보`
  - 인터넷 프로토콜 스택 4계층
 <table>
@@ -48,12 +48,12 @@
   - 순서 보장
     - 1-2-3 순서대로 도착하지 않으면 클라이언트에게 다시 요청
 
-#### TCP
+#### #UDP(User Datagram Protocol)
  - `IP + PORT + checksum` 정도만 
  - 하얀 도화지
  - http 3에서 udp 프로토콜을 적용함(단순하고 빠른 장점)
 
-#### PORT
+#### #PORT
  - 같은 IP 안에서 프로세스 구분
  - <img width="600" alt="스크린샷 2023-03-31 오후 1 53 09" src="https://user-images.githubusercontent.com/79742210/233005142-0e18343e-fa81-4abf-94f0-06a52a6b03b7.png">
  - IP - 아파트 동, PORT - 아파트 호수
@@ -62,7 +62,7 @@
    - HTTP - 80
    - HTTPs - 443
 
-#### DNS(Domain Name Service)
+#### #DNS(Domain Name Service)
  - 도메인 명을 IP주소로 변환
  - IP 주소가 바뀌더라도, 접근이 가능함
  - <img width="600" alt="스크린샷 2023-03-31 오후 3 33 58" src="https://user-images.githubusercontent.com/79742210/233005543-ccc5e345-614d-41d9-8f49-bbe1d96bc737.png">
