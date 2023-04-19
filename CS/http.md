@@ -68,3 +68,80 @@
  - <img width="600" alt="스크린샷 2023-03-31 오후 3 33 58" src="https://user-images.githubusercontent.com/79742210/233005543-ccc5e345-614d-41d9-8f49-bbe1d96bc737.png">
 
 ---
+### URI
+
+#### #URI(Uniform Resource Identifier)
+ - 소스 식별을 위한 통일된 방식
+  - 로케이터 Locator -> ex. 집주소
+  - 이르 Name -> ex. 정새미
+ - URN 이름만으로는 실제 리소스를 찾을 수 있는 방법x
+ - <img width="600" alt="스크린샷 2023-03-31 오후 3 44 50" src="https://user-images.githubusercontent.com/79742210/233008102-8c84d278-f384-4180-acb3-c107fe4a3552.png">
+ - URL 문법
+ ```Javascript
+scheme://[userinfo@]host[:port][/path][?query][#fragment]
+ ```
+  - scheme: 주로 프로토콜 - http, https, ftp
+  - userinfo: 사용자정보 포함해서 인증(거의 사용하지 않음)
+  - host: 도메인 명 IP주소 직접 사용 가능
+  - port: 접속 포트, 일반적으로 생략(http = 80, https = 443)
+  - path: 리소스 경로, 계층적 구조
+  - query: key=value 형태(?로 시작, &으로 추가 가능) - query parameter || query string
+  - fragment: html 내부 북마크 사용, 서버 전송 x
+
+---
+### HTTP
+
+#### #모든 것이 HTTP
+ - HTTP(Hyper Text Transfer Protocol)
+   - 거의 모든 형태의 데이터 전송 가능(HTML, text, image 등등)
+   - 서버간 데이터 주고 받을 때에도 사용
+ - HTTP 1.1이 중요(주로 사용)
+   - TCP: HTTP/1.1, HTTP/2
+   - UCP: HTTP/3
+ - 특징
+   - 클라이언트 서버 구조
+   - 무상태 프로토콜(스테이스리스), 비연결성
+    - HTTP 메시지
+    - 단순함, 확장
+ 
+#### #클라이언트 서버 구조
+ - Request & Response 구조
+ -  <img width="600" alt="스크린샷 2023-04-03 오전 11 41 07" src="https://user-images.githubusercontent.com/79742210/233011708-9aa17475-2254-4bc2-8a22-441c9d708506.png">
+ - client/ server 구조 분리
+   - client: serve에 요청, 응답 대기
+   - server: client 요청에 대한 결과 만들어서 응답
+ 
+#### #Stateful, Stateless(무상태 프로토콜)
+ - Stateful: 중간에 `클라이언트 <-> 서버` 바뀌면 안됨
+ - Stateless: `응답 서버`를 쉽게 바꿀 수 있음
+ - 장점
+   - 통신 중간에 서버측 장애가 나더라도 `Stateless` 상태 라면 2번째 서버가 응답해 줄 수 있음
+   - <img width="600" alt="스크린샷 2023-04-03 오후 2 01 41" src="https://user-images.githubusercontent.com/79742210/233012766-9e0b365b-39d3-4372-b16a-d6990de75c9d.png">
+   - 스케일 아웃(수평 확장 유리) 설계에 유리
+ - 한계
+   - 상태 유지(로그인)을 해야할 경우<br>
+   -> 일반적으로 쿠키와 세션을 사용해서 상태유지 -> 최소한으로 사용해야함
+   - 데이터를 많이 보내게 됨
+
+#### #비 연결성(connectionless)
+ - 장점
+   - 연결을 유지하지 않는 모델
+     - TCP/IP 연결 > 요청 > 응답 > TCP/IP 연결 종료
+     - <img width="600" alt="스크린샷 2023-04-03 오후 2 23 19" src="https://user-images.githubusercontent.com/79742210/233013511-0cf8d0a7-6183-4c38-be1c-4603aa72128f.png">
+   - 초 단위 이하의 빠른 속도로 응답
+   - 서버는 연결 유지 x, 최소한의 지원만 사용하여 서버 유지
+ - 단점
+   - TCP/IP 연결을 새로 맺어야 함
+   - HTML, Javascript, css 이미지 등 수많은 자원이 함께 다운로드
+   - HTTP 지속 연결(Persistent Connections)로 문제 해결
+   - <img width="600" alt="스크린샷 2023-04-03 오후 2 45 32" src="https://user-images.githubusercontent.com/79742210/233014172-d76a9b85-ea4c-42f0-aaa1-c3a82fd35cd1.png">
+ - 어려운 업무?
+   - 같은 시간에 발생하는 대용량 트래픽(ex. 선착순 이벤트 ,명절 KTX 예약, 수강신청 등)
+
+#### #HTTP 메시지
+ - HTTP 메시지 구조
+ - <img width="400" alt="스크린샷 2023-04-03 오후 3 07 28" src="https://user-images.githubusercontent.com/79742210/233014551-3c911cb0-d681-4532-b5bd-d0c33dddcbc9.png">
+ - Request & Response
+ - <img width="600" alt="스크린샷 2023-04-03 오후 3 35 11" src="https://user-images.githubusercontent.com/79742210/233014789-c235d7ec-4860-4c5b-b54b-def67218ab42.png">
+
+---
