@@ -1,6 +1,6 @@
 
 ## HTTP 웹 기본 지식
-https://www.notion.so/b-gooroom/HTTP-0f94352250d642358961fd889834ce70
+https://b-gooroom.notion.site/HTTP-0f94352250d642358961fd889834ce70
 
 ### 인터넷 네트워크
 
