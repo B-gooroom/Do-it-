@@ -145,3 +145,146 @@ scheme://[userinfo@]host[:port][/path][?query][#fragment]
  - <img width="600" alt="스크린샷 2023-04-03 오후 3 35 11" src="https://user-images.githubusercontent.com/79742210/233014789-c235d7ec-4860-4c5b-b54b-def67218ab42.png">
 
 ---
+### HTTP method
+
+#### #HTTP API를 만들어보자
+ - API URI 설계
+   - `리소스 식별`
+   - 회원을 등록하고 수정하고 조회 -> '회원'이라는 개념이 리소스<br>
+   -> `회원` 리소스를 URI 맵핑
+   - 리소스 & 행위 분리
+     - 리소스 = 회원
+     - 행위 = 등록, 수정, 조회, 삭제
+
+#### #HTTP method(resource => Representation)
+ - GET : 리소스 조회
+   - 서버ㅓ에 전달하고 싶은 데이터 query로 전달
+   - 바디로 전달 가능하지만, 지원하지 않는 곳이 많음
+ - POST : 요청 데이터 처리, 등록
+   - 메시지 바디를 통해 서버로 요청
+   - **대상 리소스가 리소스의 고유한 의미 쳬계에 따라 요청에 포함된 표현을 처리하도록 요청**
+   - POST /order/{orderId}/start (컨트롤 URI)
+ - PUT : 리소스 덮어쓰기, 해당 리소스가 없으면 생성
+   - 클라이언트가 리소스 위치를 알고 URI 지정
+ - PATCH : 리소스 부분 변경
+   - 원하는 부분만 변경 가능
+ - DELETE : 리소스 삭제
+
+#### #HTTP method 속성
+ - Safe
+   - 호출해도 리소스를 변경하지 않음 -> get은 안전함
+   - 해당 리소스의 변경만을 고려함
+ - Idempotent(역동)
+   - 한번 호출, 두번 호출, 100번 호출 해도 결과가 똑같음
+     - get : 여러번 조회해도 최종결과는 같음
+     - put : 결과를 대체, 같은 요청을 여러번 해도 최종결과는 같음
+     - delete : 결과를 삭제, 같은 요청을 여러번 해도 최종 결과는 같음
+     - post : 두번 호출하면 결과가 중복될 수 있음
+   - 외부 요인(put, patch 등)으로 중간에 리소스가 변경되는 것까지는 고려하지 않음
+ - Cacheable(캐시가능)
+   - get, head, post, patch 캐시가능 -> 보통 get, head 정도만 캐시로 사용
+
+---
+### HTTP method use
+
+#### #클라이언트에서 서버로 데이터 전송
+ - 쿼리 파라미터를 통한 데이터 전송
+ - 메시지 바디를 통한 데이터 전송
+ - 4가지 상황
+   - 정적 데이터 조회
+     - <img width="600" alt="스크린샷 2023-04-17 오전 9 39 09" src="https://user-images.githubusercontent.com/79742210/233228784-4190f30d-483c-4ece-951b-a931962ca477.png">
+     - 이미지, 정적 텍스트 문서
+     - 조회는 GET 사용
+     - 정적 데이터는 일반적으로 단순하게 조회 가능
+   - 동적 데이터 조회
+     - <img width="600" alt="스크린샷 2023-04-17 오전 9 45 24" src="https://user-images.githubusercontent.com/79742210/233228923-6deb99fd-b60d-4154-adc1-6135c1c4feb7.png">
+     - 주로 검색, 게시판 목록, 정렬 필터
+     - 조회 조건을 줄여주는 필터, 조회 결과를 정렬하는 정렬 조건
+     - GET은 쿼리 파라미터 사용해서 데이터 전달
+   - HTML Form을 통한 데이터 전송
+     - POST
+     - <img width="600" alt="스크린샷 2023-04-17 오전 10 04 02" src="https://user-images.githubusercontent.com/79742210/233229115-6bc4b808-7aaf-444c-917b-a3b11cbd7a40.png">
+       - form의 내용을 body로 넘김(key=value, 쿼리 파라미터 형식)
+       - 전송 데이터를 url encoding 처리
+       - form 전송은 GET도 지원
+     - multipart/form-data
+     - <img width="600" alt="스크린샷 2023-04-17 오전 10 20 41" src="https://user-images.githubusercontent.com/79742210/233229808-eb29f8f2-1a63-4378-b8e3-6183eaf49975.png">
+       - 파일 같이 바이너리 데이터 전송시 사용
+       - 다른 종류의 여러 파일과 폼 내용을 함께 전송할 수 있음
+ - HTTP API 데이터 전송
+   - 백엔드 시스템 통신 - 서버 to 서버
+   - 앱 클라이언트 - 아이폰, 안드로이드
+   - 웹 클라이언트 - HTML에서 Form 전송 대신 스크립트를 통한 통신에 사용(ajax)
+   - POST, PUT, PATCH - 메시지 바디를 통해 데이터 전송
+   - GET - 조회, 쿼리 파라미터로 데이터 전달
+   - Content-Type: application/json을 주로 사용(TEXT, XML, JSON 등)
+
+#### #HTTP API 설계 에시
+ - _HTTP API - 컬렉션 : post 기반 등록(ex.회원관리시스템)_
+   - 회원 목록 /members -> GET
+   - 회원 등록 /members/{id} -> POST
+   - 회원 조회 /member/{id} -> GET(단건조회)
+   - 회원 수정 /member/{id} -> PATCH, PUT, POST
+   - 회원 삭제 /member/{id} -> DELETE
+   - 특징
+     - 클라이언트는 등록될 리소스의 URI를 모름
+     - 서버가 새로 등록된 리소스 URI를 생성해줌<br>
+     -> HTTP/1.1 201 Created Location: /members/100
+     - 컬렉션
+       - 서버가 관리하는 리소스 디렉토리
+       - 서버가 리소스의 URI를 생헝하고 관리
+       - 컬렉션 = /members
+
+ - HTTP API - 스토어 : put 기반 등록(ex.파일관리시스템)
+   - 파일 목록 /files -> GET
+   - 파일 조회 /files/{filename} -> GET
+   - 파일 등록 /files/{filename} -> PUT
+   - 파일 삭제 /files/{filename} -> DELETE
+   - 파일 대량 등록 /files -> POST
+   - 특징
+     - 클라이언트가 리소스 URI를 알고 있어야함
+     - 클라이언트가 직접 리소스의 URI를 지정해줌
+     - 스토어
+       - 클라이언트가 관리하는 리소스 저장소
+       - 클라이언트가 리소스의 URI를 알고 관리
+
+ - HTML Form 사용
+   - HTML Form은 GET, POST만 지원
+   - 순수 HTML, HTML Form에 해당
+   - 회원 목록 /members -> GET
+   - 회원 등록 폼 /members/new -> GET
+   - 회원 등록 /members/new, /members -> POST
+   - 회원 조회 /member/{id} -> GET
+   - 회원 수정 폼 /members/{id} -> GET
+   - 회원 수정 /members/{id}/edit, /memers/{id} -> POST
+   - 회원 삭제 /membmers/{id}/delete -> POST
+   - 특징
+     - HTML Form은 GET, POST만 지원
+     - 컨트롤 URI
+       - GET, POST만 지원하므로 제약이 있음
+       - 이런 제약을 해결하기 위해 동사로 된 리소스 경로 사용
+       - POST의 /new, /edit, /delte가 컨트롤 URI
+       - HTTP 메서드로 해결하기 애매한 경우에 사용
+
+ - 좋은 URI 설계 개념?
+   - 문서(document)
+     - 단일 개념(파일 하나, 객체 인스턴스, 데이터베이스 row)
+     - `ex. /members/100, /files/star.jpg`
+   - 컬렉션(collection)
+     - 서버가 관리하는 리소스 디렉토리
+     - 서버가 리소스의 URI를 생성하고 관리
+     - `ex. /members`
+   - 스토어(store)
+     - 클라이언트가 관리하는 자원 저장소
+     - 클라이언트가 리소스의 URI를 알고 관리
+     - `ex. /files`
+   - 컨트롤러(controller), 컨트롤 URI
+     - 문서, 컬렉션, 스토어로 해결하기 어려운 추가 프로세스 실행
+     - 동사를 직접 사용
+     - `ex. /members/{id}/delete`
+
+---
+### HTTP 상태코드
+
+#### #상태코드
+
