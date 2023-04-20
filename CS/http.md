@@ -1,3 +1,4 @@
+
 ## HTTP 웹 기본 지식
 
 ### 인터넷 네트워크
@@ -335,7 +336,143 @@ scheme://[userinfo@]host[:port][/path][?query][#fragment]
 ---
 ### Header
 
-#### #
+#### #일반헤더
+ - HTTP 전송에 필요한 모든 부가정보
+ - HTTP 표준
+   - RFC2616 (과거) - 1999년
+   - RFC7230 ~ 7235 - 2014년
+     - message body를 통해 표현 데이터 전달
+     - 메시지 본문 = payload
+     - 표현은 요청이나 응답에서 전달할 실제 데이터
+     - 표현 헤더는 표현 데이터를 해석할 수 있는 정보 제공
+
+#### #표현
+ - Content-Type : 표현 데이터의 형식
+   - body에 들어가는 내용
+   - text/html, application/json, image/png
+ - Content-Encoding : 표현 데이터의 압축 방식
+   - 표현 데이터를 압축하기 위해 사용
+   - gzip, deflate, identitiy(압축x)
+ - Content-Language : 표현 데이터의 자연 언어
+   - 표현 데이터의 자연언어를 표현
+   - ko, en, en-US
+ - Content-Length : 표현 데이터으 ㅣ길이
+   - 표현 데이터의 길이
+   - byte 단위
+
+#### #협상(콘텐츠 네고시에이션)
+ - Accept : 클라이언트가 선호하는 미디어 타입 전달
+ - Accept-Charset : 클라이언트가  선호하는 문자 인코딩
+ - Accept-Encoding : 클라이언트가 선호하는 압축 인코딩
+ - Accept-Language : 클라이언트가 선호하는 언어
+ - <img width="600" alt="스크린샷 2023-04-18 오후 2 06 24" src="https://user-images.githubusercontent.com/79742210/233241658-3bfdb2f5-a1f5-4419-b190-6c75233e688d.png">
+ - 협상과 우선순위 1
+   - Quality Values(q) 값 사용
+   - 0 ~ 1, 클수록 높은 우선순위
+   - 생략한다면 1로 인식
+   ```shell
+   ? GET /event
+   Accept-Language : ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7
+   ```
+   - 위와 같은 Accept-Language를 가졌을 때? 아래와 같이 볼 수 있음
+   ```shell
+   ko-KR; (q=1) / en-US; q=0.8 / en; q=0.7
+   ```
+   - ko-KR > en-US > en
+ - 협상과 우선순위 2
+   - 구체적인 것이 우선
+   ```shell
+   ? GET /event
+   Accept: text/*, text/plain, text/plain;format-flowed, */*
+   ```
+   - text/plain;format=flowed > text/plain > text/* > */*
+ - 협상과 우선순위 3
+   - 구체적인 것을 기준을 미디어 타입을 맞춤
+   ```shell
+   ? GET /event
+   text/*;q=0.3, text/html;q=0.7, text/html;level=1,
+   text/html;level=2;q=0.4, */*;q=0.5
+   ```
+<table>
+ <tr>
+  <th>Media Type</th>
+  <th>Quality</th>
+ </tr>
+ <tr>
+  <td>text/html;level=1</td>
+  <td>1</td>
+ </tr>
+  <tr>
+  <td>text/html</td>
+  <td>0.7</td>
+ </tr>
+  <tr>
+  <td>text/plain</td>
+  <td>0.3</td>
+ </tr>
+  <tr>
+  <td>image/jpeg</td>
+  <td>0.5</td>
+ </tr>
+  <tr>
+  <td>text/html;level=2</td>
+  <td>0.4</td>
+ </tr>
+  <tr>
+  <td>text/html;level=3</td>
+  <td>0.7</td>
+ </tr>
+</table>
+
+#### #전송방식
+   - 단순 전송
+     - <img width="600" alt="스크린샷 2023-04-18 오후 3 03 18" src="https://user-images.githubusercontent.com/79742210/233245523-b13bc214-c99c-42e4-9bb7-f2adc2ca7b04.png">
+   - 압축 전송
+     - <img width="600" alt="스크린샷 2023-04-18 오후 3 04 48" src="https://user-images.githubusercontent.com/79742210/233245607-b6f74c07-cd66-4f41-b733-ecf94e1664e5.png">
+   - 분할 전송
+     - <img width="600" alt="스크린샷 2023-04-18 오후 3 11 17" src="https://user-images.githubusercontent.com/79742210/233245686-ae1dc861-cf70-4ab2-8f58-e1e7449eb64c.png">
+   - 범위 전송
+     - <img width="600" alt="스크린샷 2023-04-18 오후 3 11 35" src="https://user-images.githubusercontent.com/79742210/233245769-adccdec0-c9da-4801-82c3-664745641e89.png">
+
+#### #일반정보
+ - From - 검색엔진
+ - Referer
+   - 현재 요청된 페이지 이전 웹 페이지 주소
+   - 유입 경로 분석 가능
+ - User-Agent
+   - 클라이언트의 애플리케이션 정보
+   - 어떤 정류의 브라우저에서 장애가 발생하는지 파악 가능
+   - 요청에서 사용
+ - Server
+   - 요청을 처리하는 origin(proxy를 지나 진짜 요청하는 마지막 서버) 서버의 소프트웨어 정보
+   - 응답에서 사용
+ - Date
+   - 메시지가 발생한 날자와 시간
+   - 응답에서 사용
+
+#### #특별한 정보
+ - Host : 요청한 호스트 정보(도메인)
+   - 요청에서 사용
+   - 하나의 IP주소에서 여러 도메인이 적용되어 있을 때
+   - <img width="600" alt="스크린샷 2023-04-18 오후 4 05 16" src="https://user-images.githubusercontent.com/79742210/233247735-de3edd60-bddb-4a3c-9a82-8555811193c2.png">
+ - Location : 페이지 리다이렉션
+   - 3xx 응답 결과에 Location 헤더가 있으면, Location 위치로 이동(리다이렉션)
+   - 201 - Location 값은 요청에 의해 생성된 리소스 URI
+   - 3xx - Location 값은 요청을 자동으로 리다이렉션 하기 위한 대상 리소스
+ - Allow : 허용 가능한 HTTP 메서드
+   - 405에서 응답에 포함해야함
+ - Retry-After : 유저 에이전트가 다음 요청을 하기까지 기다려야 하는 시간
+
+#### #인증
+ - Authoriztion
+   - 클라이언트 인증 정보를 서버에 전달
+   - Authorization: Basic xxxxxx
+ - WWW-Authenticate
+   - 리소스 접근시 필요한 인증 방법 정의
+   - 401 응답과 함께 사용
+ - 
+
+
 
 
 
