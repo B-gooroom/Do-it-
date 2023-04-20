@@ -470,8 +470,70 @@ scheme://[userinfo@]host[:port][/path][?query][#fragment]
  - WWW-Authenticate
    - 리소스 접근시 필요한 인증 방법 정의
    - 401 응답과 함께 사용
- - 
 
+#### #쿠키
+ - Set-Cookie : 서버에서 클라이언트로 쿠키 전달(응답)
+ - Cookie : 클라이언트가 서버에서 받은 쿠키를 저장, HTTP 요청시 서버로 전달
+ - <img width="600" alt="스크린샷 2023-04-18 오후 4 52 04" src="https://user-images.githubusercontent.com/79742210/233258170-f1aa5cbe-b726-4e5a-a82f-23baaaa6f613.png">
+ - 특징
+   - 사용처
+     - 사용자 로그인 세션 관리
+     - 광고 정보 트래킹
+   - 쿠키는 항상 서버에 전송됨
+     - 네트워크 트래픽 추가 유발
+     - 최소한의 정보만 사용(세션 id, 인증 토큰)
+     - 서버에 전송하지 않고, 웹 브라우저 내부에 데이터를 저장하고 싶으면 웹스토리지(localStorage, sessionStorage) 사용
+   - 보안에 민감한 데이터는 저장하면 안됨
+
+ - 생명주기(Expires, max-age)
+   ```shell
+   Set-Cookie: expires=Sat, 26-Dec-2020 04:39:21 GMT
+   ```
+   - 만료일이 되면 쿠키  삭제
+   ```shell
+   Set-Cookie: max-age
+   ```
+   - 0이나 음수를 지정하면 쿠키 삭제
+   - 세션 쿠키 : 만료 날짜를 생략하면 브라우저 종료시까지만 유지
+   - 영속 쿠키 : 만료 날짜를 입력하면 해당 날짜까지 유지
+
+ - 도메인
+   - 명시
+   ```shell
+   domain=example.org -> 쿠키생성
+   ```
+    - 명시한 문서 기준 도메인 + 서브 도메인 포함
+    - example.org & dev.example.org 쿠키 접근 가능
+   - 생략
+   ```shell
+   example.org에서 쿠키 생성, domain 지정 생략
+   ```
+    - 현재 문서 기준 도메인에만 적용
+    - example.org에서만 쿠키 접근, dev.example.org 쿠키 미접근
+
+ - 경로
+   ```shell
+   path=/home
+   ```
+    - 이 경로를 포함한 하위 경로 페이지만 쿠키 접근
+    - 일반적으로 `path=/루트` 로 지정
+
+ - 보안
+   - Secure
+     - 쿠키는 http, https를 구분하지 않고 전송
+     - Secure를 적용하면 https인 경우에만 전송
+   - HttpOnly
+     - XSS 공격 방지
+     - 자바스크립트에서 접근 불가(document.cookie)
+     - HTTP 전송에만 사용
+   - SameSite
+     - XSRF 공격 방지
+     - 요청 도메인과 쿠키에 설정된 도메인이 같은 경우만 쿠키 전송
+
+---
+### Header Cache
+
+#### #캐시 기본 동작
 
 
 
