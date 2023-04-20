@@ -534,8 +534,78 @@ scheme://[userinfo@]host[:port][/path][?query][#fragment]
 ### Header Cache
 
 #### #캐시 기본 동작
+ - 없을 때?
+   - 데이터가 변경되지 않아도 계속 데이터를 다운로드 받아야함
+   - 브라우저 로드 속도가 느려짐
+ - 있을 때
+   - 캐시 가능 시간동안 네트워크를 사용하지 않아도 됨
+   - 브라우저 로드 속도가 매우 빠름
+   - <img width="600" alt="스크린샷 2023-04-19 오전 10 53 45" src="https://user-images.githubusercontent.com/79742210/233260345-82fb1f9a-9a41-4890-9dea-4a7fca301f02.png">
+ - 캐시 시간 초과
+   - 서버를 통해 데이터를 다시 조회하고, 캐시를 갱신(다시 저장)
 
+#### #검증 헤더와 조건부 요청 0
+ - 검증헤더
+   - 검증헤더
+     - 캐시 데이터와 서버 데이터가 같은 검증하는 데이터
+     - Last-Modified, ETag
+   - 조건부 요청 헤더
+     - 조건에 따른 분기
+     - If-Modified-Since : Last-Modified 사용
+     - If-None-Match : ETag
+     - 조건이 만족하지 않으면 304 Not Modified
 
+#### #검증 헤더와 조건부 요청 1(Last-Modified)
+ - 캐시 시간 초과(다시 요청했을 때 2가지 상황)
+   - 서버에서 기존 데이터를 변경함
+   - 서버에서 기존 데이터를 변경하지 않음
+   - <img width="600" alt="스크린샷 2023-04-19 오전 11 29 16" src="https://user-images.githubusercontent.com/79742210/233261019-43c2272e-4a5f-4020-b063-3882bbc1a02d.png">
+ - 서버의 데이터가 갱신되지 않으면 304 Modified + 헤더 메타 정보만 응답(Body x)
+ - 클라이언트는 응답 헤더 정보로 캐시의 메타정보 갱신 + 캐시 저장 데이터 재활용<br>
+   -> 다운로드가 발생하지만 용량이 적은 헤더 정보만 다운로드
+ - Last-Modified, If-Modified-Since 단점
+   - 1초 미만(0.x초) 단위로 캐시 조정이 불가능
+   - 날짜 기반의 로직 사용
+   - 데이터를 수정해서 날짜가 다르지만, 같은 데이터를 수정해서 데이터 결과가 똑같은 경우
+   - 서버에서 별도의 캐시 로직을 관리하고 싶은 경우
 
+#### #검증 헤더와 조건부 요청 2(ETag)
+ - ETag(Entitiy Tag), If-None-Match
+   - 캐시용 데이터에 임의의 이름을 달아둠
+   - <img width="600" alt="스크린샷 2023-04-19 오후 1 58 55" src="https://user-images.githubusercontent.com/79742210/233261518-f04a0b37-7bb4-4bce-9695-a2ed68f92e22.png">
+   - ETag만 서버에 보내서 같으면 유지, 다르면 다시 받기
+   - 캐시 제어 로직을 서버에서 완전히 관리
+   - 클라이언트는 단순히 이 값을 서버에 제공
 
+#### #캐시 제어 헤더
+ - Cache-Control : 캐시 제어
+   - Cache-Control : max-age - 캐시 유효시간, 초 단위
+   - Cache-Control : no-cache - 데이터는 캐시 가능하나, origin 서버에 검증하고 사용
+   - Cache-Control : no-store - 데이터에 민감한 정보가 있으므로 저장하면 안됨
+ - Pragma : 캐시제어(HTTP 1.0 하위 호환)
+ - Expires : 캐시 유효 기간(하위 호환)
+   - 캐시 만료일을 정확한 날짜로 계산
+   - Cache-Control : max-age와 함께 사용하면 Expires는 무시됨
 
+#### #프록시 캐시
+ - <img width="600" alt="스크린샷 2023-04-19 오후 2 34 07" src="https://user-images.githubusercontent.com/79742210/233262274-47c12153-8dde-4b87-9b6a-12703e30cba6.png">
+ - 캐시 지시어(directives)
+   - Cache-Control : public
+     - 응답이 public 캐시에 저장되어도 됨
+   - Cache-Control : private
+     - 응답이 해당 사용자만을 위함, private 캐시에 저장해야함(기본값)
+   - Cache-Control : s-maxage
+     - 프록시 캐시에만 적영되는 max-age
+   - Age : 60(HTTP 헤더)
+     - 오리진 서버에서 응답 후 프록시 캐시 내에 머문 시간(초)
+
+#### #캐시 무효화
+ - 확실한 캐시 무효화 응답(혹시 모를 자동화 캐싱을 막기 위해서!)
+   ```shell
+   Cache-Contorl: no-cache, no-store, must-revalidate
+   Pragma: no-cache
+   ```
+   - Cache-Control : no-cache
+     - <img width="600" alt="스크린샷 2023-04-19 오후 3 11 14" src="https://user-images.githubusercontent.com/79742210/233262900-d5593650-96e8-4770-b144-97d1009fa2f2.png">
+   - Cahe-Control : must-revalidate
+     - <img width="600" alt="스크린샷 2023-04-19 오후 3 12 06" src="https://user-images.githubusercontent.com/79742210/233262993-8042f732-b483-4f75-80ba-cbf673b25b77.png">
