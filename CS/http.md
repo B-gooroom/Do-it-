@@ -287,4 +287,56 @@ scheme://[userinfo@]host[:port][/path][?query][#fragment]
 ### HTTP 상태코드
 
 #### #상태코드
+ - 클라이언트가 보낸 요청의 처리상태를 응답
+ - 1xx (Informational) : 요청이 수신되어 처리중
+ - 2xx (Successful) : 요청 정상 처리
+   - 200 - OK
+   - 201 - Created
+   - 202 - Accepted (배치 처리에서 사용)
+   - 204 - No Content (서버가 요청을 성공적으로 수행했지만, 응답보낼 컴텐츠가 없음)
+ - 3xx (Redirection) : 요청을 완료하려면 추가 행동이 필요 -> 3xx 응답의 결과에 Location 헤더가 있으면, Location 위치로 자동 이동
+   - <img width="600" alt="스크린샷 2023-04-18 오전 10 47 01" src="https://user-images.githubusercontent.com/79742210/233238443-d7139663-ee58-4f99-aaa9-fa80faa592aa.png">
+   - 300 - Multiple Choices
+   - 301 - Moved Permanently
+   - 302 - Found
+   - 303 - See Other
+   - 304 - Not Modified
+   - 307 - Temporary Redirect
+   - 308 - Permanent Redirect
+   - 영구 리다이렉션 - 특정 리소스의 URI가 영구적으로 이동
+     - 301 - 리다이렉트시 요청 메서드가 GET으로 변함, 본문이 제거될 수 있음
+     - 308 - 리다이렉트시 요청 메서드와 본문 유지
+   - 일시 리다이렉션 - 일시적인 변경 (3개의 기능은 같음)
+     - 302 - 리다이렉트시 요청 메서드가 GET으로 변함, 본문이 제거될 수 있음(기본값)
+     - 307 - 리다이렉트시 요청 메서드와 본문 유지(메서드를 변경하면 안됨)
+     - 303 - 리다이렉트시 요청 메서드가 GET으로 변경
+     - ex - PRG(Post, Redirect, Get)
+       - <img width="600" alt="스크린샷 2023-04-18 오전 11 28 04" src="https://user-images.githubusercontent.com/79742210/233239179-2cbe0de6-e3ef-4c56-8818-24ab234ffff6.png">
+   - 특수 리다이렉션 - 결과 대신 캐시를 사용
+     - 304 - 캐시를 목적으로 사용
+ - 4xx (Client Error) : 클라이언트 오류, 잘못된 문법 등으로 서버가 요청을 수행할 수 없음
+   - 400 Bad Request
+     - 클라이언트가 잘못된 요청을 해서 서버가 요청을 처리할 수 없음
+     - 요청구문, 메시지 오류 등
+   - 401 Unauthorized
+     - 클라이언트가 해당 리소스에 대한 인증이 필요함
+   - 403 Forbidden
+     - 서버가 요청을 이해했지만 승일을 거부함
+     - 인증 자격 증명은 있지만, 접근 권한이 불충분한 경우
+   - 404 Not Found
+     - 요청 리소스를 찾을 수 없음
+ - 5xx (Server Error) : 서버 오류, 서버가 정상 요청을 처리하지 못함
+   - 500 Internal Server Error
+     - 서버 내부 문제로 오류 발생
+   - 503 Service Unavailiable
+     - 서비스 이용 불가
+     - 서버가 일시적인 과부하 또는 예정된 작업을 요청을 처리할 수 없음
+
+---
+### Header
+
+#### #
+
+
+
 
