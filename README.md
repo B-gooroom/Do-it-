@@ -15,6 +15,7 @@
 
 ## book
 * [CoreJavascript](CoreJavascript/main.md)
+* [Operating System Concepts](Operating_System_Concepts.md)
 
 
 [![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=B-gooroom)](https://github.com/anuraghazra/github-readme-stats)
