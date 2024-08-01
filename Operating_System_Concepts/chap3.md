@@ -56,3 +56,42 @@
 - context-switching 시간을 줄이는 것이 중
 - <img width="600" alt="스크린샷 2024-08-01 14 56 08" src="https://github.com/user-attachments/assets/4d3d3c20-95e0-4aea-9a20-9cbfbbb12618">
 ---
+### 프로세스 생성 (Process Creation)
+- 부모 프로세스는 자식 프로세스 생성 - 이는 또 다른 프로세스 생성 => 트리 구조
+- 자원공유 (resource sharing)
+  - 부모 & 자식이 모든 리소스를 공유
+  - 자식은 부모 리소스의 하위 집합을 공유
+  - 부모 & 자식이 리소스를 공유하지 않음
+- 실행 (execution)
+  - 부모 & 자식은 동시에 실행 (병렬)
+  - 부모는 일부/ 모든 자식이 실행 종료할 때까지 기다림 (wait())
+- 주소지 (address space)
+  - 자식은 부모로 부터 복제
+  - 자식에게 프로그램이 로드되어 있음
+- example)
+  - 시스템 콜의 fork() 함수를 호출하면 부모 프로세스는 똑같은 자식 프로세스 생성
+  - 자식 프로세스는 exec()를 통해 실행
+  - exit()하면 기다리고 있는 부모 프로세스로 값 전달
+  - <img width="600" alt="스크린샷 2024-08-01 14 56 08" src="https://github.com/user-attachments/assets/ba5c00fc-bfac-446e-a7a8-a84c3499b841">
+  
+  ### 프로세스 종료(Process Termination)
+  - 프로세스는 exit()을 호출하고, 운영체제에 종료를 요청함
+  - 비정상 종료 (abort)
+    - 좀비(zombie) - 자식이 종료되었지만, 부모가 아직 wait()을 호출하지 않은 프로세스
+    - 고아(orphan) - 부모가 wait()을 호출하지 않고 종료해버림
+### 프로세스 간 통신 (Interprocess Communication, IPC)
+- 프로세스가 소통하고 작업을 동기화 하는 메커니즘
+- 메시지 전달(message passing) [우편] - 송신 프로세스가 수신 프로세스에게 커널을 통해 정보를 전달, 수신 프로세스도 커널에 접근해 정보를 수신
+- 공유 메모리(shared memory) [게시판] - 특정 메모리 공간을 두 프로세스가 함께 사용하며 정보를 주고 받음
+- <img width="600" alt="스크린샷 2024-08-01 14 56 08" src="https://github.com/user-attachments/assets/3d2b46fa-c63b-4c4f-8dde-d0f61a418ab5">
+
+### 생산자 - 소비자 간의 이슈
+- 생산자, 소비자 두 프로세스가 동시에 동작할 때 일어나는 이슈
+- 정보가 생산되는 속도보다 소비하는 속도가 빠를때 동기화 문제 발생 -> 버퍼를 사용(데이터를 담아두는 역할)
+- 고정된 버퍼 크기 - bound-buffer
+- 크기 제한을 두지 않는 버퍼 - unbounded-buffer
+- <img width="600" alt="스크린샷 2024-08-01 14 56 08" src="https://github.com/user-attachments/assets/6e826106-5529-485a-8231-da29c24c89a5">
+
+
+
+ 
